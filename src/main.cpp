@@ -6,8 +6,12 @@
 #include <MFRC522.h>
 #include <sms.h>
 
-#define SS_PIN 10
-#define RST_PIN 9
+// Check GSM.cpp for configuring GSM pins.
+// #define _GSM_TXPIN_ 2
+// #define _GSM_RXPIN_ 3
+#define GSM_STATUS_PIN 7
+#define SS_PIN 9
+#define RST_PIN 8
 
 File myFile;
 MFRC522 mfrc522(SS_PIN, RST_PIN);
@@ -20,7 +24,7 @@ char n[20];
 
 void setup()
 {
-    pinMode(9, OUTPUT);
+    pinMode(GSM_STATUS_PIN, OUTPUT);
 
     // Serial connection.
     Serial.begin(9600);
@@ -85,7 +89,7 @@ void setup()
         // Serial.println("\nSMS sent OK");
 
         // Turn on LED when GSM is ready.
-        digitalWrite(9, HIGH);
+        digitalWrite(GSM_STATUS_PIN, HIGH);
     }
     Serial.println("initialization done.");
 };
