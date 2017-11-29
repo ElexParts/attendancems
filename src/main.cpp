@@ -19,7 +19,7 @@ SMSGSM sms;
 
 boolean started = false;
 char own_phone_num[] = "639000000000";
-char test_sms_text[] = "Arduino SMS";
+char test_sms_text[] = "Test message.";
 
 void setup()
 {

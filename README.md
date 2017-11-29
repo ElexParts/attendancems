@@ -9,5 +9,9 @@ An Attendance Monitoring System with RFID and SMS.
 ## Installation
 Instructions for installing the system will be provided soon.
 
+## Reference
+* Tutorial: Datalogger (https://www.arduino.cc/en/Tutorial/Datalogger)
+* Reference: SD Library (https://www.arduino.cc/en/Reference/SD)
+
 ## Maintainers
 * Romualdo Dasig [Github](https://github.com/dasigr)
