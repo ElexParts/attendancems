@@ -17,10 +17,9 @@ File myFile;
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 SMSGSM sms;
 
-int numdata;
 boolean started = false;
-char smsbuffer[160];
-char n[20];
+char own_phone_num[] = "639000000000";
+char test_sms_text[] = "Arduino SMS";
 
 void setup()
 {
@@ -59,7 +58,7 @@ void setup()
 
         // read from the file until there's nothing else in it:
         while (myFile.available()) {
-        Serial.write(myFile.read());
+            Serial.write(myFile.read());
         }
         // close the file:
         myFile.close();
@@ -85,7 +84,7 @@ void setup()
 
     if(started) {
         // Enable this two lines if you want to send an SMS.
-        // if (sms.SendSMS("639XXXXXXXXX", "Arduino SMS"))
+        // if (sms.SendSMS(own_phone_num, test_sms_text))
         // Serial.println("\nSMS sent OK");
 
         // Turn on LED when GSM is ready.
@@ -99,20 +98,8 @@ void loop()
     char position;
     char phone_num[20]; // array for the phone number string
     char sms_text[100]; // array for the SMS text string
-    char own_phone_num[] = "639000000000";
-    char test_sms_text[] = "Arduino SMS";
 
     if(started) {
-      // Enable this two lines if you want to send an SMS.
-      if (sms.SendSMS(own_phone_num, test_sms_text))
-      Serial.println("\nSMS sent OK");
-
-      // Read if there are messages on SIM card and print them.
-      // if(gsm.readSMS(smsbuffer, 160, n, 20)) {
-          // Serial.println(n);
-          // Serial.println(smsbuffer);
-      // }
-
       position = sms.IsSMSPresent(SMS_UNREAD);
       if (position) {
         // there is new SMS => read it
