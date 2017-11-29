@@ -20,7 +20,7 @@ char n[20];
 
 void setup()
 {
-    pinMode(12, OUTPUT);
+    pinMode(9, OUTPUT);
 
     // Serial connection.
     Serial.begin(9600);
@@ -75,9 +75,9 @@ void setup()
     // For http uses is raccomanded to use 4800 or slower.
     Serial.println("Initializing GSM Shield...");
     if (gsm.begin(2400)) {
-        Serial.println("\nstatus=READY");
+        Serial.println("\nstatus = READY");
         started = true;
-    } else Serial.println("\nstatus=IDLE");
+    } else Serial.println("\nstatus = IDLE");
 
     if(started) {
         // Enable this two lines if you want to send an SMS.
