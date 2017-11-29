@@ -2,22 +2,16 @@
 #include <SIM900.h>
 #include <SoftwareSerial.h>
 #include <SPI.h>
+#include <SD.h>
 #include <MFRC522.h>
 #include <sms.h>
 
 #define SS_PIN 10
 #define RST_PIN 9
 
-MFRC522 mfrc522(SS_PIN, RST_PIN);	// Create MFRC522 instance.
+File myFile;
+MFRC522 mfrc522(SS_PIN, RST_PIN);
 SMSGSM sms;
-
-// To change pins for Software Serial, use the two lines in GSM.cpp.
-
-// GSM Shield for Arduino
-// www.open-electronics.org
-// this code is based on the example of Arduino Labs.
-
-// Simple sketch to send and receive SMS.
 
 int numdata;
 boolean started = false;
@@ -30,10 +24,56 @@ void setup()
 
     // Serial connection.
     Serial.begin(9600);
-    Serial.println("GSM Shield testing.");
+
+    Serial.print("Initializing SD card...");
+    if (!SD.begin(4)) {
+        Serial.println("initialization failed!");
+        while (1);
+    }
+    Serial.println("initialization done.");
+
+    // open the file. note that only one file can be open at a time,
+    // so you have to close this one before opening another.
+    myFile = SD.open("test.txt", FILE_WRITE);
+
+    // if the file opened okay, write to it:
+    if (myFile) {
+        Serial.print("Writing to test.txt...");
+        myFile.println("testing 1, 2, 3.");
+        // close the file:
+        myFile.close();
+        Serial.println("done.");
+    } else {
+        // if the file didn't open, print an error:
+        Serial.println("error opening test.txt");
+    }
+
+    // re-open the file for reading:
+    myFile = SD.open("test.txt");
+    if (myFile) {
+        Serial.println("test.txt:");
+
+        // read from the file until there's nothing else in it:
+        while (myFile.available()) {
+        Serial.write(myFile.read());
+        }
+        // close the file:
+        myFile.close();
+    } else {
+        // if the file didn't open, print an error:
+        Serial.println("error opening test.txt");
+    }
+
+    // SPI connection.
+    Serial.print("Initializing RFID...");
+    SPI.begin();
+	mfrc522.PCD_Init();
+    Serial.println("Scan PICC to see UID and type...");
+    Serial.println("initialization done.");
     
     // Start configuration of shield with baudrate.
     // For http uses is raccomanded to use 4800 or slower.
+    Serial.println("Initializing GSM Shield...");
     if (gsm.begin(2400)) {
         Serial.println("\nstatus=READY");
         started = true;
@@ -45,13 +85,9 @@ void setup()
         // Serial.println("\nSMS sent OK");
 
         // Turn on LED when GSM is ready.
-        digitalWrite(12, HIGH);
+        digitalWrite(9, HIGH);
     }
-
-    // SPI connection.
-    SPI.begin();
-	mfrc522.PCD_Init();
-	Serial.println("Scan PICC to see UID and type...");
+    Serial.println("initialization done.");
 };
 
 void loop()
