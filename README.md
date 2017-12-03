@@ -15,4 +15,4 @@ Instructions for installing the system will be provided soon.
 * Reference: SD Library (https://www.arduino.cc/en/Reference/SD)
 
 ## Maintainers
-* Romualdo Dasig [Github](https://github.com/dasigr)
+* Romualdo Dasig ([Github](https://github.com/dasigr))
