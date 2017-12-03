@@ -100,31 +100,31 @@ void loop()
     char sms_text[100]; // array for the SMS text string
 
     if(started) {
-      position = sms.IsSMSPresent(SMS_UNREAD);
-      if (position) {
-        // there is new SMS => read it
-        sms.GetSMS(position, phone_num, sms_text, 100);
-        #ifdef DEBUG_PRINT
-          gsm.DebugPrint("DEBUG SMS phone number: ", 0);
-          gsm.DebugPrint(phone_num, 0);
-          gsm.DebugPrint("\r\n          SMS text: ", 0);
-          gsm.DebugPrint(sms_text, 1);
-        #endif
-      }
+        position = sms.IsSMSPresent(SMS_UNREAD);
+        if (position) {
+            // there is new SMS => read it
+            sms.GetSMS(position, phone_num, sms_text, 100);
+            #ifdef DEBUG_PRINT
+            gsm.DebugPrint("DEBUG SMS phone number: ", 0);
+            gsm.DebugPrint(phone_num, 0);
+            gsm.DebugPrint("\r\n          SMS text: ", 0);
+            gsm.DebugPrint(sms_text, 1);
+            #endif
+        }
 
-      delay(1000);
+        delay(1000);
     }
 
     // Look for new cards
-	if (! mfrc522.PICC_IsNewCardPresent()) {
-		return;
-	}
+    if (! mfrc522.PICC_IsNewCardPresent()) {
+        return;
+    }
 
-	// Select one of the cards
-	if (! mfrc522.PICC_ReadCardSerial()) {
-		return;
-	}
+    // Select one of the cards
+    if (! mfrc522.PICC_ReadCardSerial()) {
+        return;
+    }
 
-	// Dump debug info about the card. PICC_HaltA() is automatically called.
-	mfrc522.PICC_DumpToSerial(&(mfrc522.uid));
+    // Dump debug info about the card. PICC_HaltA() is automatically called.
+    mfrc522.PICC_DumpToSerial(&(mfrc522.uid));
 };
