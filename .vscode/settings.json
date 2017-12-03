@@ -1,5 +1,0 @@
-{
-    "terminal.integrated.env.osx": {
-        "PATH": "/Users/das/.platformio/penv/bin:/usr/local/var/pyenv/shims:/usr/local/var/pyenv/bin:/usr/local/bin:/Users/das/.rvm/gems/ruby-2.0.0-p648/bin:/Users/das/.rvm/gems/ruby-2.0.0-p648@global/bin:/Users/das/.rvm/rubies/ruby-2.0.0-p648/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Applications/Wireshark.app/Contents/MacOS:/Users/das/.composer/vendor/bin:/Users/das/.rvm/bin"
-    }
-}
